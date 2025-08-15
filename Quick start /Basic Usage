@@ -1,0 +1,22 @@
+from src.calculators.roi_calculator import ROICalculator
+from src.data_collectors.datadog_collector import DatadogCollector
+
+# Initialize data collector
+collector = DatadogCollector(api_key="your_api_key", app_key="your_app_key")
+
+# Collect current metrics
+current_metrics = collector.collect_infrastructure_metrics(
+    start_date="2024-01-01",
+    end_date="2024-12-31"
+)
+
+# Calculate ROI
+calculator = ROICalculator()
+roi_analysis = calculator.calculate_migration_roi(
+    current_metrics=current_metrics,
+    target_services=["cloudwatch", "systems_manager", "config"],
+    timeline_months=12
+)
+
+print(f"Projected 3-year ROI: {roi_analysis['three_year_roi']:.1%}")
+print(f"Break-even point: {roi_analysis['break_even_months']} months")
