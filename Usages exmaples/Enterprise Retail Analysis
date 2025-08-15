@@ -1,0 +1,28 @@
+# Example for large retail company
+from src.calculators.roi_calculator import ROICalculator
+
+retail_metrics = {
+    'total_instances': 500,
+    'monitoring_tool_licenses': 138000,  # DataDog Pro for 500 hosts
+    'monthly_incidents': 25,
+    'annual_downtime_hours': 60,
+    'mean_time_to_resolution_hours': 6,
+    'hourly_revenue_impact': 50000,  # High for retail
+    'ops_staff_cost': 150000,
+    'ops_team_size': 8,
+    'total_metrics': 2500,
+    'log_volume_gb_monthly': 600,
+    'dashboards': 25,
+    'annual_compliance_violations': 1,
+    'compliance_violation_cost': 75000,
+    'annual_security_incidents': 0.5,
+    'security_incident_cost': 200000
+}
+
+calculator = ROICalculator()
+results = calculator.calculate_migration_roi(
+    current_metrics=retail_metrics,
+    target_services=['cloudwatch', 'systems_manager', 'config']
+)
+
+print(f"Retail ROI: {results['three_year_roi']:.1%}")
